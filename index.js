@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://adslider-frontend.vercel.app",
+      "https://new-adslider-frontend.vercel.app",
       "http://localhost:5173"
     ],
     credentials: true

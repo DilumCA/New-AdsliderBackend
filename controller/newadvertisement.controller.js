@@ -1,4 +1,4 @@
-import NewAdvertisement from "../models/newadvertisements.model.js";
+import NewAdvertisement from "../models/Newadvertisements.model.js";
 
 // Create a new advertisement
 export const createNewAdvertisement = async (req, res) => {

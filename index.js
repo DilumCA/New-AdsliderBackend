@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 
 // Test route
 app.get("/", (req, res) => {
-  res.send("Mobile Ad Dashboard API is running....");
+  res.send("Web app is running....");
 });
 
 //scheme routes

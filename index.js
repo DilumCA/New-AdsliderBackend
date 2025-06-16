@@ -7,6 +7,7 @@ import advertisementRoutes from "./routes/advertisement.routes.js";
 import authRoutes from "./routes/auth.js";
 import crypto from "crypto";
 import newAdvertisementRoutes from "./routes/newadvertisement.routes.js";
+import userAdMatchRoutes from "./routes/userAdMatch.routes.js";
 
 dotenv.config();
 const app = express();
@@ -51,7 +52,10 @@ app.use("/api/schemes", schemeRoutes);
 // Advertisement routes
 app.use("/ads", advertisementRoutes);
 app.use("/api/newadvertisements", newAdvertisementRoutes);
+// User Advertisement Match routes
+app.use("/api", userAdMatchRoutes);
 
+// Authentication routes
 app.use("/auth", authRoutes);
 
 // Start server

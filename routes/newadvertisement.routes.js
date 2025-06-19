@@ -7,6 +7,8 @@ import {
   updateNewAdvertisement,
   deleteNewAdvertisement,
 } from "../controller/newadvertisement.controller.js";
+// import { getAdvertisementsBySchemeId } from "../controller/newadvertisement.controller.js";
+import { getAdvertisementsBySchemeIds } from "../controller/newadvertisement.controller.js";
 
 const router = express.Router();
 
@@ -16,6 +18,9 @@ router.post(
   createNewAdvertisement
 );
 router.get("/", getNewAdvertisements);
+router.post("/schemes", getAdvertisementsBySchemeIds);
+// router.get("/scheme/:schemeId", getAdvertisementsBySchemeId);
+
 router.get("/:id", getNewAdvertisementById);
 router.put(
   "/:id",
@@ -23,5 +28,7 @@ router.put(
   updateNewAdvertisement
 );
 router.delete("/:id", deleteNewAdvertisement);
+
+
 
 export default router;

@@ -9,6 +9,9 @@ import crypto from "crypto";
 import newAdvertisementRoutes from "./routes/newadvertisement.routes.js";
 import userAdMatchRoutes from "./routes/userAdMatch.routes.js";
 
+
+
+
 dotenv.config();
 const app = express();
 
@@ -16,6 +19,7 @@ const app = express();
 connectMongo();
 console.log("MONGO_URI:", process.env.MONGO_URI);
 console.log("Cloudinary Cloud Name :", process.env.CLOUDINARY_CLOUD_NAME);
+
 
 // Middleware
 app.use(express.json());
@@ -57,6 +61,7 @@ app.use("/api", userAdMatchRoutes);
 
 // Authentication routes
 app.use("/auth", authRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;

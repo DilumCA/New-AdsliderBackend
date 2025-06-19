@@ -6,6 +6,10 @@ import NewAdvertisement from "../models/Newadvertisements.model.js";
 const openai = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: "https://openrouter.ai/api/v1",
+  defaultHeaders: {
+    "HTTP-Referer": "http://localhost:5000", // or your deployed domain
+    "X-Title": "Adslider Backend"
+  }
 });
 
 async function isAdRelevantToUser(user, schemeTags) {
@@ -27,10 +31,7 @@ Does this ad match the user? Reply with:
 `;
 
   const completion = await openai.chat.completions.create({
-    // model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-    //  model: "meta-llama/llama-4-maverick:free",
     model: "opengvlab/internvl3-14b:free",
-    // model: "open-r1/olympiccoder-32b:free",
     messages: [{ role: "user", content: prompt }],
   });
 

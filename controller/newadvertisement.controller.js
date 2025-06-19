@@ -101,3 +101,32 @@ export const deleteNewAdvertisement = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+
+// // Get all advertisements by Scheme ID
+// export const getAdvertisementsBySchemeId = async (req, res) => {
+//   try {
+//     const { schemeId } = req.params;
+//     const ads = await NewAdvertisement.find({ selectedSchemeIds: schemeId });
+//     res.json(ads);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+// Get all advertisements by multiple Scheme IDs
+export const getAdvertisementsBySchemeIds = async (req, res) => {
+  try {
+    // Expecting: { ids: ["id1", "id2", ...] }
+    const ids = req.body.ids;
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ message: "No scheme IDs provided" });
+    }
+    const ads = await NewAdvertisement.find({ selectedSchemeIds: { $in: ids } });
+    res.json(ads);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

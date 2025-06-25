@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth.js";
 import crypto from "crypto";
 import newAdvertisementRoutes from "./routes/newadvertisement.routes.js";
 import userAdMatchRoutes from "./routes/userAdMatch.routes.js";
+import cropRoutes from "./routes/crop.routes.js";
 
 
 
@@ -62,7 +63,8 @@ app.use("/api", userAdMatchRoutes);
 // Authentication routes
 app.use("/auth", authRoutes);
 
-
+//crop routes 
+app.use("/api", cropRoutes);
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

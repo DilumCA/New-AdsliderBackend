@@ -1,4 +1,6 @@
 import Scheme from "../models/Schemes.model.js";
+import NewAdvertisement from "../models/Newadvertisements.model.js";
+
 
 // Create a new scheme
 export const createScheme = async (req, res) => {
@@ -80,13 +82,40 @@ export const updateScheme = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-
-// Delete a scheme by ID
 export const deleteScheme = async (req, res) => {
   try {
     const scheme = await Scheme.findByIdAndDelete(req.params.id);
     if (!scheme) return res.status(404).json({ message: "Scheme not found" });
-    res.json({ message: "Scheme deleted" });
+
+    // Remove the scheme ID from all advertisements' selectedSchemeIds
+    await NewAdvertisement.updateMany(
+      {},
+      { $pull: { selectedSchemeIds: scheme._id } }
+    );
+
+    // Remove the scheme object from selectedSchemes by _id, SchemeNo, or schemeTitle (object case)
+    await NewAdvertisement.updateMany(
+      {},
+      {
+        $pull: {
+          selectedSchemes: {
+            $or: [
+              { _id: scheme._id },
+              { SchemeNo: scheme.SchemeNo },
+              { schemeTitle: scheme.schemeTitle }
+            ]
+          }
+        }
+      }
+    );
+
+    // Remove the scheme title string if present in selectedSchemes (string case)
+    await NewAdvertisement.updateMany(
+      {},
+      { $pull: { selectedSchemes: scheme.schemeTitle } }
+    );
+
+    res.json({ message: "Scheme deleted and references removed from advertisements" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
